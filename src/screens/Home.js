@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux'
 import {
   Text,
   View,
@@ -12,41 +13,8 @@ import {
 import AssetExample from '../components/AssetExample';
 
 export default function Home({ navigation }) {
-  const employers = [
-    {
-      name: 'Иван',
-      surname: 'Иванов',
-      age: 25,
-      fathername: 'Иванович',
-      phonenumber: '+7-900-123-45-67',
-      cardnumber: 100500,
-      naruki: 0,
-      isBlocked: false,
-    },
-    {
-      name: 'Сергей',
-      surname: 'Сидоров',
-      age: 45,
-      isBlocked: true,
-    },
-    {
-      name: 'Измаил',
-      surname: 'Игнатов',
-      age: 50,
-      isBlocked: false,
-    },
-  ];
-
-  const [clients, setClients] = useState(employers);
-
-  const employersList = employers.map((item) => {
-    let cvet = 'black';
-    if (item.block === 'Нет') {
-      cvet = 'red';
-    } else {
-      cvet = item.age < 40 ? 'green' : 'black';
-    }
-  });
+  const stateClients = useSelector((state) => state.clients)
+  const [clients, setClients] = useState(stateClients);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -66,6 +34,7 @@ export default function Home({ navigation }) {
   const [age, setAge] = useState();
 
   const addClients = () => {
+
     const defaultClient = {
       name: 'Измаил',
       surname: 'Игнатов',
@@ -88,6 +57,8 @@ export default function Home({ navigation }) {
   };
 
   const onAddClient = (client) => {
+    // todo dispatch action with type = addClient
+    // {type: }
      setClients([...clients, client]);
   }
   return (
