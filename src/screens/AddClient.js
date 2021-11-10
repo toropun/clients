@@ -30,6 +30,18 @@ const reducer = (state, action) => {
   }
 };
 
+const changeName = (name) => {
+  return { type: "name", payload: name};
+}
+
+const changeSurname = (surname) => {
+  return { type: "surname", payload: surname};
+}
+
+const changeAge = (age) => {
+  return { type: "age", payload: age};
+}
+
 export default function AddClient({ navigation, route }) {
 
   const [client, dispatch] = useReducer(reducer, initialValue);
@@ -52,7 +64,7 @@ export default function AddClient({ navigation, route }) {
 
       <TextInput
         style={{ height: 44, width: '100%', backgroundColor: 'white',  }}
-        onChangeText={(text) => dispatch({ type: "name", payload: text})}
+        onChangeText={(text) => dispatch(changeName(text))}
         value={client.name}
         placeholder="Введите имя"
       />
