@@ -51,28 +51,28 @@ const styles = StyleSheet.create({
   container: {},
   line: {
     color: 'white',
-    fontWeight: 500,
+    fontWeight: "500",
     fontSize: 20,
     marginVertical: 14,
     marginLeft: 16,
   },
   text2: {
     color: 'black',
-    fontWeight: 400,
+    fontWeight: "400",
     fontSize: 12,
     marginTop: 24,
     marginLeft: 17,
   },
   text3: {
     color: 'black',
-    fontWeight: 400,
+    fontWeight: "400",
     fontSize: 16,
     marginTop: 4,
     marginLeft: 16,
   },
   text4: {
     color: 'white',
-    backgroundColor: '#00000',
+    backgroundColor: "white",
     width: '100%',
   },
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useReducer } from 'react';
 import {
   Text,
   View,
@@ -10,32 +10,37 @@ import {
   Button,
 } from 'react-native';
 
+const initialValue = {
+  name: '',
+  surname: '',
+  age: 0
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'name':
+      return { ...state, name: action.payload };
+    case 'surname':
+      return { ...state, surname: action.payload };
+    case 'age':
+      return { ...state, age: action.payload };
+     
+    default:
+      throw new Error(`Unknown action type: ${action.type}`);
+  }
+};
 
 export default function AddClient({ navigation, route }) {
 
-  const [name, setName] = useState();
-  const [surname, setSurname] = useState();
-  const [age, setAge] = useState();
+  const [client, dispatch] = useReducer(reducer, initialValue);
 
   const  {onAddClient} = route.params;
 
   const addClients = () => {
-    const defaultClient = {
-      name: 'Измаил',
-      surname: 'Игнатов',
-      age: 50,
-      isBlocked: false,
-    };
-
-    const newClient = {
-      ...defaultClient,
-      name,
-      surname,
-      age: age
-    };
-    onAddClient(newClient);
+    onAddClient(client);
     navigation.goBack();
   };
+
   return (
     <View style={styles.container}>
       <View
@@ -47,26 +52,29 @@ export default function AddClient({ navigation, route }) {
 
       <TextInput
         style={{ height: 44, width: '100%', backgroundColor: 'white',  }}
-        onChangeText={setName}
-        value={name}
+        onChangeText={(text) => dispatch({ type: "name", payload: text})}
+        value={client.name}
         placeholder="Введите имя"
       />
 
       <TextInput
         style={{ height: 44, width: '100%', backgroundColor: 'white', marginTop: 10 }}
-        onChangeText={setSurname}
-        value={surname}
+        onChangeText={(text) => dispatch({ type: "surname", payload: text})}
+        value={client.surname}
         placeholder="Введите фамилию"
       />
 
       <TextInput
         style={{ height: 44, width: '100%', backgroundColor: 'white', marginTop: 10 }}
-        onChangeText={setAge}
-        value={age}
+        onChangeText={(text) => dispatch({ type: "age", payload: text})}
+        value={client.age}
         placeholder="Введите возраст"
       />
 
       <Button title="Add client" onPress={() => addClients()} />
+
+
+
     </View>
   );
 }
@@ -78,7 +86,7 @@ const styles = StyleSheet.create({
   },
   line: {
     color: '#FFFFFF',
-    fontWeight: 500,
+    fontWeight: "500",
     fontSize: 20,
     marginVertical: 14,
     marginLeft: 16,

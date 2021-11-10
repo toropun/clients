@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   line: {
     color: '#FFFFFF',
-    fontWeight: 500,
+    fontWeight: "500",
     fontSize: 20,
     marginVertical: 14,
     marginLeft: 16,

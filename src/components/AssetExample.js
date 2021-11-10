@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   paragraph: {
     backgroundColor: '#C4C4C4',
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: "500",
     textAlign: 'left',
     flex: 1,
     height: 52,
