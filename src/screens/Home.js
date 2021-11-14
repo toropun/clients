@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Text,
   View,
@@ -55,11 +56,15 @@ export default function Home({ navigation }) {
 
     setClients((ourClients) => [...ourClients, newClient]);
   };
+  const dispatch = useDispatch()
+
 
   const onAddClient = (client) => {
-    // todo dispatch action with type = addClient
-    // {type: }
-     setClients([...clients, client]);
+    dispatch({
+      type: "addClient",
+      payload: client
+    })
+    setClients([...clients, client]);
   }
   return (
     <View style={styles.container}>
