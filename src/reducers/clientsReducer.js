@@ -24,6 +24,7 @@ const INITIAL_STATE = [
 ];
 
 export const clientsReducer = (state = INITIAL_STATE, action) => {
+  console.log('action', action)
   switch (action.type) {
     case "addClient":
      return [...state, action.payload];
@@ -31,3 +32,8 @@ export const clientsReducer = (state = INITIAL_STATE, action) => {
       return state
   }
 };
+
+export const addClient = (client) => ({
+  type: "addClient",
+  payload: client
+});

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector , useDispatch} from 'react-redux';
+import { addClient } from '../reducers/clientsReducer';
 import {
   Text,
   View,
@@ -13,8 +14,7 @@ import {
 import AssetExample from '../components/AssetExample';
 
 export default function Home({ navigation }) {
-  const stateClients = useSelector((state) => state.clients)
-  const [clients, setClients] = useState(stateClients);
+  const clients = useSelector((state) => state.clients)
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -29,41 +29,14 @@ export default function Home({ navigation }) {
     </TouchableOpacity>
   );
 
-  const [name, setName] = useState();
-  const [surname, setSurname] = useState();
-  const [age, setAge] = useState();
-
-  const addClients = () => {
-
-    const defaultClient = {
-      name: 'Измаил',
-      surname: 'Игнатов',
-      age: 50,
-      isBlocked: false,
-    };
-
-    const newClient = {
-      ...defaultClient,
-      name,
-      surname,
-      age: age
-    };
-
-    const o = {name: name};
-    const a = { name };
-    setClients([...clients, newClient]);
-
-    setClients((ourClients) => [...ourClients, newClient]);
-  };
+  
   const dispatch = useDispatch()
 
   const onAddClient = (client) => {
-    dispatch({
-      type: "addClient",
-      payload: client
-    })
-    setClients([...clients, client]);
+    dispatch(addClient(client)) 
+    console.log('dispatch', client);
   }
+  console.log('render', clients)
   return (
     <View style={styles.container}>
       <View
@@ -72,29 +45,6 @@ export default function Home({ navigation }) {
       <View style={{ backgroundColor: '#E02329', width: '100%', height: 56 }}>
         <Text style={styles.line}>Клиенты</Text>
       </View>
-
-      <TextInput
-        style={{ height: 44, width: '100%', backgroundColor: 'white',  }}
-        onChangeText={setName}
-        value={name}
-        placeholder="Введите имя"
-      />
-
-      <TextInput
-        style={{ height: 44, width: '100%', backgroundColor: 'white', marginTop: 10 }}
-        onChangeText={setSurname}
-        value={surname}
-        placeholder="Введите фамилию"
-      />
-
-      <TextInput
-        style={{ height: 44, width: '100%', backgroundColor: 'white', marginTop: 10 }}
-        onChangeText={setAge}
-        value={age}
-        placeholder="Введите возраст"
-      />
-
-      <Button title="Add client" onPress={() => addClients()} />
       <Button title="Add client other screen" onPress={() => navigation.navigate('AddClient', {onAddClient})} />
       <FlatList
         data={clients}
